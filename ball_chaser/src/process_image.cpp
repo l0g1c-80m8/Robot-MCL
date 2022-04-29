@@ -25,7 +25,7 @@ void drive_robot(float linear_x, float angular_z)
 void process_image_callback(const sensor_msgs::Image img)
 {
     int white_pixel = 255;
-    float linear_max_speed = 0.4;
+    float linear_max_speed = 0.5;
     float angular_max_speed = 0.5;
     float window_size = img.step / 3;
 
@@ -35,11 +35,11 @@ void process_image_callback(const sensor_msgs::Image img)
     // Then, identify if this pixel falls in the left, mid, or right side of the image
     // Depending on the white ball position, call the drive_bot function and pass velocities to it
     // Request a stop when there's no white ball seen by the camera
-    for (int i = 0; i < img.height * img.step; i++) {
+    for (int i = 0; i < img.height * img.step - 2; i += 3) {
         // img.height -> rows in the matrix, img.step -> cols in the matrix
-        if (img.data[i] == white_pixel) {
+        if (img.data[i] == white_pixel && img.data[i + 1] == white_pixel && img.data[i + 2] == white_pixel) {
             if (white_pose_start == -1) white_pose_start = i;
-            else if(white_pose_start > -1) white_pose_end = i;
+            else if(white_pose_start > -1) white_pose_end = i + 2;
         }
     }
 
