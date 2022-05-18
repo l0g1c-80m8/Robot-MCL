@@ -31,6 +31,10 @@
     <!-- Odometry -->
     <param name="odom_frame_id" value="odom"/>
     <param name="odom_model_type" value="diff-corrected"/>
+    <param name="odom_alpha1" value="0.01"/>
+    <param name="odom_alpha2" value="0.01"/>
+    <param name="odom_alpha3" value="0.01"/>
+    <param name="odom_alpha4" value="0.01"/>
   </node>
 
   <!-- Move Base -->
